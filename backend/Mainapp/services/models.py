@@ -1,7 +1,16 @@
 from django.db import models
 from django.conf import settings
+from account.models import User
 
 class Service(models.Model):
+    provider = models.ForeignKey(
+        User,
+        null=True,
+        blank=True, 
+        on_delete=models.CASCADE,
+        limit_choices_to={'role': 'provider'}
+    )
+    
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     base_price = models.DecimalField(max_digits=8, decimal_places=2)

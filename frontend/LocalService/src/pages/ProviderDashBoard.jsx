@@ -11,6 +11,12 @@ const ProviderDashboard = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
 
+  const [services, setServices] = useState([]);
+  const [serviceName, setServiceName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [message, setMessage] = useState("");
+
   const fetchBookings = async () => {
     setLoading(true);
     try {
@@ -24,8 +30,41 @@ const ProviderDashboard = () => {
     }
   };
 
+    const fetchMyServices = async () => {
+    try {
+      const res = await api.get("services/my/");
+      setServices(res.data);
+    } catch (err) {
+      console.error("Failed to load services");
+    }
+  };
+
+    const handleCreateService = async (e) => {
+    e.preventDefault();
+
+    try {
+      await api.post("services/create/", {
+        name: serviceName,
+        description: description,
+        base_price: price,
+      });
+
+      setMessage("✅ Service added successfully");
+
+      setServiceName("");
+      setDescription("");
+      setPrice("");
+
+      fetchMyServices(); // refresh list
+    } catch (err) {
+      setMessage("❌ Failed to add service");
+    }
+  };
+
+
   useEffect(() => {
     fetchBookings();
+    fetchMyServices();
   }, []);
 
   const updateStatus = async (id, status) => {
@@ -330,6 +369,62 @@ const ProviderDashboard = () => {
                               </svg>
                               <span className="font-medium">Service Name:</span>
                               <span className="ml-2">{booking.service.name}</span>
+                              {/* <span className="ml-2">{booking.customer_username}</span> */}
+                            </div>
+                            <div className="flex items-center text-gray-600">
+                              <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                                />
+                              </svg>
+                              <span className="font-medium">Booked by:</span>
+                              <span className="ml-2">{booking.customer_username}</span>
+                              {/* <span className="ml-2">{booking.customer_username}</span> */}
+                            </div>
+
+                            <div className="flex items-center text-gray-600">
+                              <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                                />
+                              </svg>
+                              <span className="font-medium">Address:</span>
+                              <span className="ml-2">{booking.address}</span>
+                              {/* <span className="ml-2">{booking.customer_username}</span> */}
+                            </div>
+
+                            <div className="flex items-center text-gray-600">
+                              <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                                />
+                              </svg>
+                              <span className="font-medium">City:</span>
+                              <span className="ml-2">{booking.city}</span>
+                              {/* <span className="ml-2">{booking.customer_username}</span> */}
+                            </div>
+
+                            <div className="flex items-center text-gray-600">
+                              <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                                />
+                              </svg>
+                              <span className="font-medium">Phone No:</span>
+                              <span className="ml-2">{booking.customer_phone}</span>
+                              {/* <span className="ml-2">{booking.customer_username}</span> */}
                             </div>
 
                             <div className="flex items-center text-gray-600">

@@ -9,6 +9,7 @@ const Register = () => {
     username: "",
     email: "",
     password: "",
+    phone: "",
     role: "customer",
   });
 
@@ -38,6 +39,7 @@ const Register = () => {
         err.response?.data?.username ||
         err.response?.data?.email ||
         err.response?.data?.password ||
+        err.response?.data?.phone ||
         "Registration failed"
       );
     } finally {
@@ -79,6 +81,16 @@ const Register = () => {
             name="password"
             placeholder="Password"
             value={formData.password}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+          />
+
+          <input
+            type="number"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
             onChange={handleChange}
             required
             className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"

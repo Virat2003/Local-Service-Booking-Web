@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import HomePage from "./pages/HomePage";
+import ProviderServices from "./pages/ProviderServices";
 
 const App = () => {
   return (
@@ -23,9 +24,11 @@ const App = () => {
           <Route path="/" element={<PrivateRoute> <HomePage /> </PrivateRoute> } />
           <Route path="/services" element={ <PrivateRoute> <Services /> </PrivateRoute> } />
           <Route path="/mybookings" element={ <PrivateRoute> < MyBookings />  </PrivateRoute>} />
-          <Route path="/book/:serviceId" element={ <PrivateRoute> <CreateBooking /> </PrivateRoute>    } />
-          <Route path="/provider-dashboard" element={ <PrivateRoute>   <ProviderDashBoard /> </PrivateRoute>    } />
-          
+          <Route path="/book/:serviceId" element={ <PrivateRoute> <CreateBooking /> </PrivateRoute> } />
+          <Route path="/provider-dashboard" element={ <PrivateRoute>   <ProviderDashBoard /> </PrivateRoute> } />
+          <Route path="/provider/services" element={ <PrivateRoute>   <ProviderServices /> </PrivateRoute> } />
+          <Route path="/provider/services" element={ <PrivateRoute>   <ProviderServices /> </PrivateRoute> } />
+
         </Routes>
       </BrowserRouter>
       

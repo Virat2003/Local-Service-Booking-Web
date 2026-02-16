@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
 const Navbar = () => {
@@ -99,7 +99,7 @@ const Navbar = () => {
                   <Link
                     to="/mybookings"
                     className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all ${
-                      isActive("/my-bookings")
+                      isActive("/mybookings")
                         ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                         : "text-gray-700 hover:bg-gray-100"
                     }`}
@@ -123,29 +123,54 @@ const Navbar = () => {
               )}
 
               {role === "provider" && (
-                <Link
-                  to="/provider-dashboard"
-                  className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all ${
-                    isActive("/provider-dashboard")
-                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <>
+                  <Link
+                    to="/provider-dashboard"
+                    className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all ${
+                      isActive("/provider-dashboard")
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
-                  Dashboard
-                </Link>
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                      />
+                    </svg>
+                    Dashboard
+                  </Link>
+                  <Link
+                    to="/provider/services"
+                    className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all ${
+                      isActive("/provider-services")
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      />
+                    </svg>
+                    My Services
+                  </Link>
+                </>
               )}
             </div>
 
@@ -320,6 +345,7 @@ const Navbar = () => {
                 </div>
               </div>
 
+              {/* Customer Links */}
               {role === "customer" && (
                 <>
                   <Link
@@ -373,35 +399,63 @@ const Navbar = () => {
                 </>
               )}
 
+              {/* Provider Links */}
               {role === "provider" && (
-                <Link
-                  to="/provider-dashboard"
-                  className={`flex items-center px-3 py-3 rounded-lg font-medium transition-all ${
-                    isActive("/provider-dashboard")
-                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <svg
-                    className="w-5 h-5 mr-3"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <>
+                  <Link
+                    to="/provider-dashboard"
+                    className={`flex items-center px-3 py-3 rounded-lg font-medium transition-all ${
+                      isActive("/provider-dashboard")
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
-                  Dashboard
-                </Link>
+                    <svg
+                      className="w-5 h-5 mr-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                      />
+                    </svg>
+                    Dashboard
+                  </Link>
+                  <Link
+                    to="/provider/services"
+                    className={`flex items-center px-3 py-3 rounded-lg font-medium transition-all ${
+                      isActive("/provider-services")
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <svg
+                      className="w-5 h-5 mr-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      />
+                    </svg>
+                    My Services
+                  </Link>
+                </>
               )}
 
               <hr className="my-3" />
 
+              {/* Common Links */}
               <Link
                 to="/profile"
                 className="flex items-center px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition"
@@ -423,7 +477,7 @@ const Navbar = () => {
                 My Profile
               </Link>
 
-              <Link
+              {/* <Link
                 to="/settings"
                 className="flex items-center px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition"
                 onClick={() => setIsMenuOpen(false)}
@@ -448,7 +502,7 @@ const Navbar = () => {
                   />
                 </svg>
                 Settings
-              </Link>
+              </Link> */}
 
               <button
                 onClick={() => {

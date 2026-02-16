@@ -6,14 +6,19 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'role']
+        fields = ['username', 'email', 'password', 'role', 'phone']
 
     def create(self, validated_data):
         return User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
-            role=validated_data['role']
+            role=validated_data['role'],
+            phone=validated_data.get('phone'),
+            # address=validated_data.get('address'),
+            # city=validated_data.get('city'),
+            # state=validated_data.get('state'),
+            # pincode=validated_data.get('pincode'),
         )
 
 
