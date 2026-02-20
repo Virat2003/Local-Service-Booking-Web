@@ -52,22 +52,31 @@ const CreateBooking = () => {
       await api.post("bookings/create/", {
         service_id: serviceId,
         booking_date: bookingDate,
-        booking_time: bookingTime,
-        notes: notes,
-        address,
-        city,
-        state,
-        pincode,
+        // booking_time: bookingTime,
+        // notes: notes,
+        address:address,
+        city:city,
+  
       });
 
       setShowSuccessModal(true);
       setTimeout(() => navigate("/mybookings"), 2000);
     } catch (err) {
-      setMessage(
-        err.response?.data?.message ||
-          "❌ Failed to create booking. Please try again.",
-      );
-      setMessageType("error");
+    //   setMessage(
+    //     err.response?.data?.message ||
+    //       "❌ Failed to create booking. Please try again.",
+    //   );
+    //   setMessageType("error");
+      console.log("FULL ERROR:", err.response);
+  console.log("ERROR DATA:", err.response?.data);
+
+  setMessage(
+    JSON.stringify(err.response?.data) ||
+    "❌ Failed to create booking. Please try again."
+  );
+
+  setMessageType("error");
+
     } finally {
       setLoading(false);
     }

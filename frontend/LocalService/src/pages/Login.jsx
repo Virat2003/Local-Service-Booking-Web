@@ -31,7 +31,7 @@ const Login = () => {
 if (profile.data.role === "provider") {
   navigate("/provider-dashboard");
 } else {
-  navigate("/services");
+  navigate("/");
 }
     } catch (err) {
       setError(
@@ -282,7 +282,7 @@ if (profile.data.role === "provider") {
             </form>
 
             {/* Divider */}
-            <div className="relative my-6">
+            {/* <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
               </div>
@@ -291,10 +291,10 @@ if (profile.data.role === "provider") {
                   Or continue with
                 </span>
               </div>
-            </div>
+            </div> */}
 
             {/* Social Login Buttons */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
                 className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
@@ -332,7 +332,7 @@ if (profile.data.role === "provider") {
                 </svg>
                 Facebook
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Sign Up Link */}

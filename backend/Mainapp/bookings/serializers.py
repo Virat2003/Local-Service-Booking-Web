@@ -22,13 +22,6 @@ class BookingSerializer(serializers.ModelSerializer):
     read_only=True
     )
     
-    # customer_address = serializers.CharField(source='customer.address', read_only=True)
-    # customer_city = serializers.CharField(source='customer.city', read_only=True)
-    # customer_state = serializers.CharField(source='customer.state', read_only=True)
-    # customer_pincode = serializers.CharField(source='customer.pincode', read_only=True)
-
-
-
 
     class Meta:
         model = Booking
@@ -43,13 +36,7 @@ class BookingSerializer(serializers.ModelSerializer):
             'status',
             'address',
             'city',
-            'state',
-            'pincode',
             'created_at',
-            # 'customer_address',
-            # 'customer_city',
-            # 'customer_state',
-            # 'customer_pincode',
         ]
 
 

@@ -5,6 +5,7 @@ from .models import Service
 from .serializers import ServiceSerializer
 from rest_framework.generics import RetrieveAPIView
 from rest_framework import status
+from django.db.models import Q
 
 
 class ServiceListView(APIView):
@@ -12,6 +13,27 @@ class ServiceListView(APIView):
 
     def get(self, request):
         services = Service.objects.filter(is_active=True)
+
+        # search functionality
+        search = request.query_params.get("search")
+        location = request.query_params.get("location")
+                    
+             # 🔍 Search by name or description
+        if search:
+            services = services.filter(
+                Q(name__icontains=search) |
+                Q(description__icontains=search)
+            )
+
+          # 📍 Filter by provider location
+        # if location:
+        #     services = services.filter(
+        #         provider__provider_profile__location__icontains=location
+        #     )
+
+        if location:
+            services = services.filter(location__icontains=location)
+
         serializer = ServiceSerializer(services, many=True)
         return Response(serializer.data)
 
@@ -20,10 +42,7 @@ class CreateServiceView(APIView):
 
     def post(self, request):
         if request.user.role != "provider":
-            return Response(
-                {"error": "Only providers can add services"},
-                status=status.HTTP_403_FORBIDDEN
-            )
+            return Response({"error": "Only providers can create services"}, status=403)
 
         serializer = ServiceSerializer(data=request.data)
 
@@ -32,6 +51,7 @@ class CreateServiceView(APIView):
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
+
 
 
 class ServiceDetailView(RetrieveAPIView):
@@ -101,3 +121,4 @@ class MyServicesDetailView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
         
+

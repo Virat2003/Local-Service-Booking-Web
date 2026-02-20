@@ -1,64 +1,109 @@
-import {
-  Home as HomeIcon,
-  Zap as Electric,
-} from "lucide-react";
+import { Home, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <>
-    
-       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <HomeIcon className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-white">ServiceHub</span>
+    <footer className="bg-gray-900 text-gray-300 mt-20">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+
+        <div className="grid md:grid-cols-4 gap-10">
+
+          {/* Logo & About */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <Home className="w-6 h-6 text-white" />
               </div>
-              <p className="text-sm">Your trusted platform for local service bookings</p>
+              <span className="text-2xl font-bold text-white">
+                ServiceHub
+              </span>
             </div>
+            <p className="text-gray-400 leading-relaxed">
+              Connecting customers with trusted local professionals.
+              Fast, reliable, and secure service booking platform.
+            </p>
 
-            <div>
-              <h4 className="font-semibold text-white mb-4">Services</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Home Cleaning</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Plumbing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Electrician</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">View All</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-white mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-white mb-4">Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Trust & Safety</a></li>
-              </ul>
+            {/* Social Icons */}
+            <div className="flex gap-4 mt-6">
+              <Facebook className="w-5 h-5 hover:text-indigo-400 cursor-pointer" />
+              <Instagram className="w-5 h-5 hover:text-pink-400 cursor-pointer" />
+              <Twitter className="w-5 h-5 hover:text-blue-400 cursor-pointer" />
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2025 ServiceHub. All rights reserved.</p>
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-4">
+              Quick Links
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/" className="hover:text-indigo-400 transition">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-indigo-400 transition">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-indigo-400 transition">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/how-it-works" className="hover:text-indigo-400 transition">
+                  How It Works
+                </Link>
+              </li>
+            </ul>
           </div>
+
+          {/* Popular Services */}
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-4">
+              Popular Services
+            </h3>
+            <ul className="space-y-3">
+              <li className="hover:text-indigo-400">Home Cleaning</li>
+              <li className="hover:text-indigo-400">Plumbing</li>
+              <li className="hover:text-indigo-400">Electrician</li>
+              <li className="hover:text-indigo-400">AC Repair</li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-4">
+              Contact Us
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-indigo-400" />
+                <span>Mumbai, India</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-indigo-400" />
+                <span>+91 98765 43210</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-indigo-400" />
+                <span>support@servicehub.com</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
-      </footer>
-    </>
-  )
-}
 
-export default Footer
+        {/* Bottom Section */}
+        <div className="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+          © {new Date().getFullYear()} ServiceHub. All rights reserved.
+        </div>
+
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

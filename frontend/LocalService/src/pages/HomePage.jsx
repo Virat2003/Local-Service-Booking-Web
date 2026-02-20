@@ -62,35 +62,19 @@ const HomePage = () => {
     },
   ];
 
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      service: "Home Cleaning",
-      rating: 5,
-      comment: "Excellent service! The cleaner was professional and thorough.",
-      avatar: "SJ",
-    },
-    {
-      name: "Michael Chen",
-      service: "Plumbing",
-      rating: 5,
-      comment: "Quick response and fixed the issue on the first visit.",
-      avatar: "MC",
-    },
-    {
-      name: "Emily Rodriguez",
-      service: "Painting",
-      rating: 5,
-      comment: "Amazing work! My house looks brand new. Highly recommend!",
-      avatar: "ER",
-    },
-  ];
+
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery, "in", location);
-    // Add your search logic here
+
+    const queryParams = new URLSearchParams();
+
+    if (searchQuery) queryParams.append("search", searchQuery);
+    if (location) queryParams.append("location", location);
+
+    window.location.href = `/services?${queryParams.toString()}`;
   };
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -113,21 +97,24 @@ const HomePage = () => {
               <Link to="/services" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">
                 Services
               </Link>
-              <a href="#how-it-works" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">
+
+              <Link to={`/how-it-works`} className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">
                 How It Works
-              </a>
-              <Link href="#" className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">
+              </Link>
+              <Link to={`/about`} className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">
                 About
               </Link>
-              
+
               <Link to={"/register"}>
-              <button className="px-5 py-2 text-indigo-600 font-semibold hover:bg-indigo-50 rounded-lg transition-colors">
-                Sign In
-              </button>
+                <button className="px-5 py-2 text-indigo-600 font-semibold hover:bg-indigo-50 rounded-lg transition-colors">
+                  Sign In
+                </button>
               </Link>
-              <button className="px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all transform hover:scale-105">
-                Get Started
-              </button>
+              <Link to={'/services'}>
+                <button className="px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all transform hover:scale-105">
+                  Get Started
+                </button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -168,7 +155,7 @@ const HomePage = () => {
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-50 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-20 -mr-48"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20 -ml-48"></div>
-        
+
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -214,26 +201,6 @@ const HomePage = () => {
               </button>
             </div>
           </form>
-
-          {/* Quick Stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-1">50K+</div>
-              <div className="text-sm text-gray-600">Happy Customers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-1">1000+</div>
-              <div className="text-sm text-gray-600">Professionals</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-1">4.9★</div>
-              <div className="text-sm text-gray-600">Average Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-1">100K+</div>
-              <div className="text-sm text-gray-600">Services Booked</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -249,7 +216,7 @@ const HomePage = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-indigo-500 hover:shadow-xl transition-all cursor-pointer transform hover:scale-105"
+                className="group bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-indigo-500 hover:shadow-xl transition-all transform hover:scale-105"
               >
                 <div className={`w-14 h-14 ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <service.icon className="w-7 h-7 text-white" />
@@ -261,49 +228,16 @@ const HomePage = () => {
           </div>
 
           <div className="text-center mt-10">
-            <button className="px-8 py-3 text-indigo-600 font-semibold border-2 border-indigo-600 rounded-xl hover:bg-indigo-50 transition-colors inline-flex items-center gap-2">
-              View All Services
-              <ArrowRight className="w-5 h-5" />
-            </button>
+            <Link to={"/services"}>
+              <button className="px-8 py-3 text-indigo-600 font-semibold border-2 border-indigo-600 rounded-xl hover:bg-indigo-50 transition-colors inline-flex items-center gap-2">
+                View All Services
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* How It Works
-      <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-            <p className="text-xl text-gray-600">Get your service booked in 3 simple steps</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">
-                1
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Choose Your Service</h3>
-              <p className="text-gray-600">Browse our categories and select the service you need</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">
-                2
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Pick a Professional</h3>
-              <p className="text-gray-600">Review profiles, ratings, and select your preferred provider</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">
-                3
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Book & Relax</h3>
-              <p className="text-gray-600">Confirm your booking and let the professional handle the rest</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* Features */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -327,37 +261,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 to-purple-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
-            <p className="text-xl text-gray-600">Real reviews from real customers</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 italic">"{testimonial.comment}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500">{testimonial.service}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
@@ -367,68 +270,16 @@ const HomePage = () => {
             Join thousands of satisfied customers and book your first service today
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-indigo-600 font-semibold rounded-xl hover:shadow-2xl transition-all transform hover:scale-105">
-              Book a Service Now
-            </button>
-            <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-indigo-600 transition-all">
-              Become a Professional
-            </button>
+            <Link to={`/services`}>
+              <button className="px-8 py-4 bg-white text-indigo-600 font-semibold rounded-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                Book a Service Now
+              </button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Footer
-      <footer className="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <HomeIcon className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-white">ServiceHub</span>
-              </div>
-              <p className="text-sm">Your trusted platform for local service bookings</p>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-white mb-4">Services</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Home Cleaning</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Plumbing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Electrician</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">View All</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-white mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-white mb-4">Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Trust & Safety</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2025 ServiceHub. All rights reserved.</p>
-          </div>
-        </div>
-      </footer> */}
-
-      <Footer/>
+      <Footer />
     </div>
   );
 };

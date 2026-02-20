@@ -9,5 +9,7 @@ class ServiceSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'base_price',
+            'location',
             'is_active',
         ]
+

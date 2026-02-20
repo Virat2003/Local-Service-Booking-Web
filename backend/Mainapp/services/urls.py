@@ -7,5 +7,5 @@ urlpatterns = [
     path('create/', CreateServiceView.as_view(), name='create-service'),
     path('myservices/', MyServicesView.as_view(), name='my-services'),
     path('myservices/<int:pk>/', MyServicesDetailView.as_view(), name='my-services-detail'),
-    # path('myservices/edit/<int:pk>/', MyServicesDetailView.as_view(), name='my-services-detail'),
+
 ]

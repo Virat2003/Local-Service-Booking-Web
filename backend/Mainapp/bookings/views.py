@@ -8,11 +8,12 @@ from .models import Booking
 from .serializers import BookingSerializer
 from services.models import ProviderProfile
 
-# Create your views here.
+
 class CreateBookingView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+
         if request.user.role != 'customer':
             return Response(
                 {"error": "Only customers can book services"},
@@ -20,28 +21,24 @@ class CreateBookingView(APIView):
             )
 
         serializer = BookingSerializer(data=request.data)
+
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        # 🔥 AUTO-ASSIGN PROVIDER
-        provider_profile = ProviderProfile.objects.filter(
-            service=serializer.validated_data['service'],
-            is_available=True
-        ).first()
+        # ✅ Get service from validated data
+        service = serializer.validated_data['service']
 
-        if not provider_profile:
-            return Response(
-                {"error": "No provider available for this service"},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
+        # ✅ Auto assign provider from service
         booking = serializer.save(
             customer=request.user,
-            provider=provider_profile.user,
+            provider=service.provider,
             status='pending'
         )
 
-        return Response(BookingSerializer(booking).data, status=status.HTTP_201_CREATED)
+        return Response(
+            BookingSerializer(booking).data,
+            status=status.HTTP_201_CREATED
+        )
 
 
 
@@ -102,3 +99,26 @@ class UpdateBookingStatusView(APIView):
             {"message": f"Booking {new_status} successfully"}
         )
 
+class CancelBookingView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, booking_id):
+
+        try:
+            booking = Booking.objects.get(id=booking_id, customer=request.user)
+        except Booking.DoesNotExist:
+            return Response({
+                "error":"Booking Not Found"
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        if booking.status.lower() != "pending":
+            return Response({
+                "error":"Only Pending bookings can be cancelled"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        booking.status = "cancelled"
+        booking.save()
+
+        return Response({
+            "message":"Booking cancelled Successfully"
+        }, status=status.HTTP_200_OK)

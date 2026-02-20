@@ -14,6 +14,8 @@ const ProviderServices = () => {
   const [serviceToDelete, setServiceToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [editingService, setEditingService] = useState(null);
+  const [location, setLocation] = useState("");
+
 
   useEffect(() => {
     fetchServices();
@@ -43,12 +45,14 @@ const ProviderServices = () => {
         name,
         description,
         base_price: price,
+        location,
       });
 
       setMessage("✅ Service added successfully");
       setMessageType("success");
 
       setName("");
+      setLocation("")
       setDescription("");
       setPrice("");
 
@@ -100,6 +104,8 @@ const ProviderServices = () => {
     setName(service.name);
     setDescription(service.description);
     setPrice(service.base_price);
+    setLocation(service.location);
+
   };
 
 const handleUpdate = async (e) => {
@@ -109,6 +115,7 @@ const handleUpdate = async (e) => {
     await api.put(`services/myservices/${editingService.id}/`, {
       name,
       description,
+      location,
       base_price: price
     });
 
@@ -116,6 +123,9 @@ const handleUpdate = async (e) => {
     setName("");
     setDescription("");
     setPrice("");
+    setLocation("")
+
+    
 
     setMessage("✅ Service updated successfully");
     setMessageType("success");
@@ -303,8 +313,44 @@ const handleUpdate = async (e) => {
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
                   />
                 </div>
+      
               </div>
 
+
+            {/*  Location */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Location  <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="enter a location"
+                    value={location}
+                    onChange={(e) =>setLocation(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  />
+                </div>
+      
+              </div>
+
+             
               {/* Description */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -375,7 +421,7 @@ const handleUpdate = async (e) => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center shadow-lg"
+                className="w-full mt-3  bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center shadow-lg"
               >
                 {editingService ? (
                   <>
@@ -507,6 +553,9 @@ const handleUpdate = async (e) => {
 
                         <p className="text-gray-600 mb-4 leading-relaxed">
                           {service.description}
+                        </p>
+                         <p className="text-gray-600 mb-4 leading-relaxed">
+                          {service.location}
                         </p>
 
                         <div className="flex items-center gap-6">

@@ -3,7 +3,8 @@ from .views import (
     CreateBookingView,
     CustomerBookingsView,
     ProviderBookingsView,
-    UpdateBookingStatusView
+    UpdateBookingStatusView,
+    CancelBookingView
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('my/', CustomerBookingsView.as_view()),
     path('provider/', ProviderBookingsView.as_view()),
     path('update/<int:booking_id>/', UpdateBookingStatusView.as_view()),
+    path('cancel/<int:booking_id>/', CancelBookingView.as_view()),
 ]

@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import HomePage from "./pages/HomePage";
 import ProviderServices from "./pages/ProviderServices";
+import About from "./pages/About";
+import HowItWorks from "./pages/HowItWorks";
 
 const App = () => {
   return (
@@ -21,7 +23,7 @@ const App = () => {
           <Route path="/profile" element={ <PrivateRoute> <Profile /> </PrivateRoute> } />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/" element={<PrivateRoute> <HomePage /> </PrivateRoute> } />
+          <Route path="/" element={ <HomePage />  } />
           <Route path="/services" element={ <PrivateRoute> <Services /> </PrivateRoute> } />
           <Route path="/mybookings" element={ <PrivateRoute> < MyBookings />  </PrivateRoute>} />
           <Route path="/book/:serviceId" element={ <PrivateRoute> <CreateBooking /> </PrivateRoute> } />
@@ -29,6 +31,8 @@ const App = () => {
           <Route path="/provider/services" element={ <PrivateRoute>   <ProviderServices /> </PrivateRoute> } />
           <Route path="/provider/services" element={ <PrivateRoute>   <ProviderServices /> </PrivateRoute> } />
 
+          <Route path="/about" element={<About />} />
+          <Route path="/how-it-works" element={<HowItWorks />} /> 
         </Routes>
       </BrowserRouter>
       
