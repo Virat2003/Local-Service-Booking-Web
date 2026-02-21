@@ -189,7 +189,7 @@ if (profile.data.role === "provider") {
               </div>
 
               {/* Remember Me & Forgot Password */}
-              <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                 <label className="flex items-center">
                   <input
                     type="checkbox"
@@ -206,7 +206,7 @@ if (profile.data.role === "provider") {
                 >
                   Forgot password?
                 </a>
-              </div>
+              </div> */}
 
               {/* Error Message */}
               {error && (
