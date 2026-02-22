@@ -20,6 +20,10 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from django.http import HttpResponse
+
+def ping(request):
+    return HttpResponse("OK")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +34,5 @@ urlpatterns = [
     path("api/", include("account.urls")),
     path('api/bookings/', include('bookings.urls')),
     path('api/services/', include('services.urls')),
-
+    path("ping/", ping),
 ]
