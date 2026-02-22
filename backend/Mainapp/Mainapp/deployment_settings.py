@@ -24,7 +24,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://localservicefrontend-db98.onrender.com/'
+    'https://localservicefrontend-db98.onrender.com'
 ]
 
 
